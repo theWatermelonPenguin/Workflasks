@@ -1,0 +1,54 @@
+import { useState } from "react"
+
+function Signup ( {openLogOrSign} ) {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        const payload = { email, password };
+
+        try {
+            const res = await fetch("http://localhost:3000/api/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await res.json()
+            
+            if (res.ok) {
+                console.log("Signup successful:", data);
+            } else {
+                console.log("Signup failed:", data);
+            }
+
+        } catch (err) {
+            console.log("Network error:", err);
+        }
+    }
+    function onEmailChange(e) {
+        setEmail(e.target.value)
+    }
+    function onPasswordChange(e) {
+        setPassword(e.target.value)
+    }
+
+    return (
+        <>
+            <div className="flex items-center justify-center h-screen">
+                <form onSubmit={handleSubmit} className="items-start flex flex-col border rounded-lg w-auto h-auto bg-neutral-100 p-3 space-y-3">
+                    <h1 className="text-2xl">Sign Up</h1>
+                    <h1>Email</h1>
+                    <input type="email" className="rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700 ring-1" onChange={onEmailChange}/>
+                    <h1>Password</h1>
+                    <input type="password" className="rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700 ring-1" onChange={onPasswordChange}/>
+                    <button type="submit" className="self-center bg-blue-700 w-20 h-10 rounded-lg text-white hover:cursor-pointer hover:bg-blue-500 transition-all">Sign Up</button>
+                    <button type="button" className="hover:cursor-pointer hover:text-blue-700 underline self-center transition-all" onClick={openLogOrSign}>Already have an account? Log in!</button>
+                </form>
+            </div>
+        </>
+    )
+}
+
+export default Signup

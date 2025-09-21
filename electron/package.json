@@ -1,0 +1,10 @@
+{
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^38.1.0"
+  },
+  "type": "module"
+}
