@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:16
+    container_name: workflasks_db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  server:
+    build: .
+    container_name: workflasks_server
+    restart: always
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db   # override host ONLY for containers
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    command: sh -c "npm run migrate && npm start"
+
+volumes:
+  pgdata:

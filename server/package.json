@@ -1,10 +1,11 @@
 {
-  "name": "backend",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "migrate": "knex migrate:latest --knexfile knexfile.cjs --env development"
   },
   "keywords": [],
   "author": "",
@@ -12,8 +13,13 @@
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
     "express": "^5.1.0",
+    "knex": "^3.1.0",
     "pg": "^8.16.3"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "chalk": "^5.6.2"
+  }
 }

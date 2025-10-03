@@ -3,10 +3,11 @@ import { useState } from "react"
 function Signup ( {openLogOrSign} ) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [name, setName] = useState("")
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const payload = { email, password };
+        const payload = { email, password, name };
 
         try {
             const res = await fetch("http://localhost:3000/api/signup", {
@@ -33,12 +34,17 @@ function Signup ( {openLogOrSign} ) {
     function onPasswordChange(e) {
         setPassword(e.target.value)
     }
+    function onNameChange(e) {
+        setName(e.target.value)
+    }
 
     return (
         <>
             <div className="flex items-center justify-center h-screen">
                 <form onSubmit={handleSubmit} className="items-start flex flex-col border rounded-lg w-auto h-auto bg-neutral-100 p-3 space-y-3">
                     <h1 className="text-2xl">Sign Up</h1>
+                    <h1>Name</h1>
+                    <input type="text" className="rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700 ring-1 capitalize" onChange={onNameChange}/>
                     <h1>Email</h1>
                     <input type="email" className="rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700 ring-1" onChange={onEmailChange}/>
                     <h1>Password</h1>
