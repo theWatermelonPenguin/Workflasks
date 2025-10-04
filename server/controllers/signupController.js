@@ -17,7 +17,7 @@ export const signupController = async (req, res) => {
 
     await pool.query("INSERT INTO users (email, hashed_password, name) VALUES ($1, $2, $3)", [email, hashed_password, name]);
 
-    res.status(201).json({ message: "User signed up successfully!" });
+    res.status(201).json({ message: "Signup succesfully" });
 
     console.log(chalk.green("Signup succesful"))
 };
