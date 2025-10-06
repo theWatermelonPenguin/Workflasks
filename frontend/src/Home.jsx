@@ -1,6 +1,6 @@
 import './App.css'
 
-function Home( {handleClick} ) {
+function Home( {handleClick, test} ) {
   return (
         <>
             <div className="p-5 flex items-start">
@@ -10,6 +10,9 @@ function Home( {handleClick} ) {
                         <h2>Your Workflasks</h2>
                     </div>
                 <h2 className="ml-auto hover:cursor-pointer hover:text-blue-700 transition delay-75" onClick={handleClick}>Log In or Sign Up</h2>
+
+                
+                <button onClick={test}>test</button>
             </div>
         </>
     )
