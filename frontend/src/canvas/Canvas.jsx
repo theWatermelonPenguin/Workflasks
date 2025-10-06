@@ -11,12 +11,13 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 
 import InputNode from "../nodes/TriggerNode";
+import ActionNode from "../nodes/ActionNode";
 import Sidebar from "./Sidebar";
 import { useCanvasActions } from "./useCanvasActions";
 
 const initialNodes = [];
 const initialEdges = [];
-const nodeTypes = { inputnode: InputNode };
+const nodeTypes = { inputnode: InputNode, actionnode: ActionNode };
 
 export default function Canvas() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -24,15 +25,7 @@ export default function Canvas() {
   const [nodeCount, setNodeCount] = useState(initialNodes.length);
   const [selectedNode, setSelectedNode] = useState(null);
 
-  const { addInputNode, deleteSelectedNode } = useCanvasActions({
-    setNodes,
-    setEdges,
-    nodeCount,
-    setNodeCount,
-    selectedNode,
-    setSelectedNode,
-    MarkerType,
-  });
+  const { addInputNode, deleteSelectedNode, addActionNode } = useCanvasActions({setNodes, setEdges, nodeCount, setNodeCount, selectedNode, setSelectedNode, MarkerType,});
 
   const onConnect = useCallback(
     (params) =>
@@ -53,7 +46,8 @@ export default function Canvas() {
   return (
     <div className="flex h-screen">
       <Sidebar
-        onAddNode={addInputNode}
+        onAddInputNode={addInputNode}
+        onAddActionNode={addActionNode}
         onDeleteNode={deleteSelectedNode}
         selectedNode={selectedNode}
       />

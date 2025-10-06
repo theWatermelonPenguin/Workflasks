@@ -36,6 +36,23 @@ export function useCanvasActions({ setNodes, setEdges, nodeCount, setNodeCount, 
     setNodeCount(nodeCount + 1);
   }, [nodeCount, setNodeCount, setNodes, updateNodeValue]);
 
+  // add an action node
+  const addActionNode = useCallback(() => {
+    const newNodeId = `${nodeCount + 1}`;
+    const newNode = {
+      id: newNodeId,
+      type: "actionnode", // <- make sure your React Flow knows this type
+      position: { x: Math.random() * 400, y: Math.random() * 400 },
+      data: {
+        label: `Action Node ${newNodeId}`,
+        value: "",
+        onChange: (val) => updateNodeValue(newNodeId, val),
+      },
+    };
+    setNodes((nds) => nds.concat(newNode));
+    setNodeCount(nodeCount + 1);
+  }, [nodeCount, setNodeCount, setNodes, updateNodeValue]);
+
   // delete selected node
   const deleteSelectedNode = useCallback(() => {
     if (!selectedNode) return; 
@@ -50,5 +67,5 @@ export function useCanvasActions({ setNodes, setEdges, nodeCount, setNodeCount, 
     setSelectedNode(null);
   }, [selectedNode, setNodes, setEdges, setSelectedNode]);
 
-  return { addInputNode, deleteSelectedNode, updateNodeValue };
+  return { addInputNode, addActionNode, deleteSelectedNode, updateNodeValue };
 }
