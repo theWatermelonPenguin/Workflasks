@@ -36,6 +36,6 @@ export const loginController = async (req, res) => {
     }
     const token = jwt.sign(data, jwtSecretKey);
 
-    console.log(chalk.green("Log in successful for user:", email))
+    console.log(chalk.green("Log in successful for user:", email, token))
     res.json({ success: true, message: "Logged in successfully", token: token})
 };

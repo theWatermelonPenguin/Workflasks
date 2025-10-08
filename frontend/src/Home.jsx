@@ -1,8 +1,7 @@
 import './App.css'
 
 function Home( {handleClick} ) {
-    function handleNewWorkflask() {
-        
+    async function handleNewWorkflask() {
     }
     return (
         <>

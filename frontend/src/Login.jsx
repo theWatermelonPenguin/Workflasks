@@ -18,11 +18,12 @@ function Login( {openLogOrSign} ) {
             const data = await res.json()
             
             if (res.ok) {
-                console.log("Signup successful:", data);
+                if (data.token) {
+                    console.log("Signup successful:", data);
+                }
             } else {
                 console.log("Signup failed:", data);
             }
-
         } catch (err) {
             console.log("Network error:", err);
         }
