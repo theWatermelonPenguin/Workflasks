@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import x from "./assets/x.svg"
 
-function Login( {openLogOrSign} ) {
+function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -25,12 +27,14 @@ function Login( {openLogOrSign} ) {
                 console.log("Signup failed:", data);
             }
         } catch (err) {
-            console.log("Network error:", err);
+            console.log("Something went wrong", err);
         }
     }
+
     function onEmailChange(e) {
         setEmail(e.target.value)
     }
+
     function onPasswordChange(e) {
         setPassword(e.target.value)
     }
@@ -38,14 +42,17 @@ function Login( {openLogOrSign} ) {
     return (
         <>
             <div className="flex items-center justify-center h-screen">
-                <form onSubmit={handleSubmit} className="items-start flex flex-col border rounded-lg w-auto h-auto bg-neutral-100 p-3 space-y-3">
+                <form onSubmit={handleSubmit} className="relative items-start flex flex-col border-blue-700 border-2 rounded-lg w-auto h-auto bg-neutral-100 p-3 space-y-3">
+                    <Link to="/" className="absolute top-2 right-2">
+                        <img src={x} alt="Go back" className="w-10"/>
+                    </Link>
                     <h1 className="text-2xl">Login</h1>
                     <h1>Email</h1>
                     <input type="email" className="rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700 ring-1" onChange={onEmailChange}/>
                     <h1>Password</h1>
                     <input type="password" className="rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700 ring-1" onChange={onPasswordChange}/>
                     <button type="submit" className="self-center bg-blue-700 w-20 h-10 rounded-lg text-white hover:cursor-pointer hover:bg-blue-500 transition-all">Login</button>
-                    <button className="hover:cursor-pointer hover:text-blue-700 underline self-center transition-all" onClick={openLogOrSign}>Need an account? Sign up!</button>
+                    <Link to="/signup" className="hover:cursor-pointer hover:text-blue-700 underline self-center transition-all">Need an account? Sign up!</Link>
                 </form>
             </div>
         </>

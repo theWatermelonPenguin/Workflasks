@@ -1,17 +1,20 @@
-import { useState } from "react";
-import Home from "./home";
-import Auth from "./auth";
+
+import Home from "./Home";
+import Login from "./Login";
+import Signup from "./Signup";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App(){
-  const [authClick, setAuthClick] = useState(false)
-  
-  function handleClick() {
-    setAuthClick(true)
-  }
+
   return(
     <>
-      {!authClick  && <Home handleClick={handleClick} />}
-      {authClick && <Auth />}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
