@@ -8,6 +8,6 @@
   },
   "type": "module",
   "dependencies": {
-    "electron-store": "^11.0.0"
+    "electron-store": "^11.0.2"
   }
 }

@@ -1,7 +1,15 @@
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function Home() {
+    const navigate = useNavigate()
+
     async function handleNewWorkflask() {
+        const loggedIn = await window.store.get("Is logged in")
+        if (loggedIn === true) {
+            navigate("/newWorkflask")
+        } else {
+            alert("You must log in to proceed")
+        }
     }
     return (
         <>

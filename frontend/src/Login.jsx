@@ -1,33 +1,37 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import x from "./assets/x.svg"
+
+
 
 function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate()
 
     async function handleSubmit(e) {
         e.preventDefault();
         const payload = { email, password };
 
-        try {
-            const res = await fetch("http://localhost:3000/api/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json"},
-                body: JSON.stringify(payload)
-            });
+        const res = await fetch("http://localhost:3000/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify(payload)
+        });
 
-            const data = await res.json()
-            
-            if (res.ok) {
-                if (data.token) {
-                    console.log("Signup successful:", data);
-                }
-            } else {
-                console.log("Signup failed:", data);
+        const data = await res.json()
+
+        if (res.ok) {
+            if (data.token) {
+                console.log("Signup successful:", data);
+                const token = data.token
+                window.store.set("Session Token", token)
+                alert("Login Succesfull")
+                navigate('/')
+                window.store.set("Is logged in", true)
             }
-        } catch (err) {
-            console.log("Something went wrong", err);
+        } else {
+            console.log("Signup failed:", data);
         }
     }
 

@@ -1,17 +1,23 @@
-// electron/main.js
 import { app, BrowserWindow, ipcMain } from "electron";
+import { fileURLToPath } from "url";
+import path from "path";
 import Store from "electron-store";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const store = new Store();
+
 let win;
-const store = new Store(); // electron-store instance
 
 function createWindow() {
   win = new BrowserWindow({
     width: 1000,
     height: 800,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false, // your current setup
+      preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: false,
+      contextIsolation: true,
     },
   });
 
@@ -21,28 +27,6 @@ function createWindow() {
 
 app.whenReady().then(createWindow);
 
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") app.quit();
-});
-
-app.on("activate", () => {
-  if (BrowserWindow.getAllWindows().length === 0) createWindow();
-});
-
-/* ----------------- IPC handlers ----------------- */
-// Get JWT from electron-store
-ipcMain.handle("get-jwt", () => {
-  return store.get("jwt") || null;
-});
-
-// Set JWT in electron-store
-ipcMain.handle("set-jwt", (event, token) => {
-  store.set("jwt", token);
-  return true; // optional confirmation
-});
-
-// Optional: clear JWT (logout)
-ipcMain.handle("clear-jwt", () => {
-  store.delete("jwt");
-  return true;
-});
+ipcMain.handle("store:get", (_, key, defaultValue) => store.get(key, defaultValue));
+ipcMain.handle("store:set", (_, key, value) => store.set(key, value));
+ipcMain.handle("store:delete", (_, key) => store.delete(key));
