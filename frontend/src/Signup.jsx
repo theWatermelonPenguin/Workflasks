@@ -11,23 +11,18 @@ function Signup () {
         e.preventDefault();
         const payload = { email, password, name };
 
-        try {
-            const res = await fetch("http://localhost:3000/api/signup", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
+        const res = await fetch("http://localhost:3000/api/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
 
-            const data = await res.json()
-            
-            if (res.ok) {
-                console.log("Signup successful:", data);
-            } else {
-                console.log("Signup failed:", data);
-            }
-
-        } catch (err) {
-            console.log("Network error:", err);
+        const data = await res.json()
+        
+        if (res.ok) {
+            console.log("Signup successful:", data);
+        } else {
+            console.log("Signup failed:", data);
         }
     }
     function onEmailChange(e) {

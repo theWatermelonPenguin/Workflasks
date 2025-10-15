@@ -7,6 +7,7 @@ function NewWorkflask({ apps }) {
 
     function onTriggerChange(e) {
         setTrigger(e.target.value)
+        console.log(e.target.value)
     }
 
     function onActionChange(e) {
@@ -14,8 +15,24 @@ function NewWorkflask({ apps }) {
         console.log(e.target.value)
     }
 
-    function handleSave() {
+    async function handleSave() {
+        const payload = { trigger, action }
+        const token = await window.store.get("Session Token")
+        console.log(token)
+
+        const res = await fetch("http://localhost:3000/api/save", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": token},
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json()
         
+        if(data.success) {
+            alert("Succesfully saved")
+        } else {
+            alert("Something went wrong", data)
+        }
     }
 
     return(
