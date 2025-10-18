@@ -5,14 +5,17 @@
   "main": "test.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node main.js"
+    "dev": "nodemon main.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "events": "^3.3.0",
     "get-installed-apps": "^1.1.1",
+    "nodemon": "^3.1.10",
+    "ps-list": "^9.0.0",
     "ws": "^8.18.3"
   }
 }

@@ -7,9 +7,10 @@ function Home({ setApps }) {
     const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
-        sendMessage(JSON.stringify({ type: "fetchInstalledApps"}))
+        sendMessage({ type: "fetchInstalledApps"})
         onMessage((data) => {
             if(data.type === "installedApps"){
+                console.log(data)
                 setApps(data.installedApps)
                 setLoaded(true)
             }
