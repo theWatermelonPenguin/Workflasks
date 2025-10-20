@@ -1,8 +1,9 @@
-import appTrigger from "./triggers/appTrigger.js";
+import openAppTrigger from "./triggers/openAppTrigger.js";
 import appAction from "./actions/appAction.js";
 import createFile from "./actions/createFile.js";
 import { appFiles, knownAppLocations } from "./misc/consts.js";
 import events from "./misc/events.js";
+import closeAppTrigger from "./triggers/closeAppTrigger.js";
 
 async function activate(parsedData, ws) {
 
@@ -18,10 +19,12 @@ async function activate(parsedData, ws) {
         if(appFiles.hasOwnProperty(triggerApp)) {
 
             const exeName = appFiles[triggerApp]
-
-            await appTrigger(exeName)
-
-            ws.send(JSON.stringify({ type: "success"}))
+            if(parsedData.triggerType === "On app close") {
+                await closeAppTrigger(exeName)
+            } else if(parsedData.triggerType === "On app open") {
+                await openAppTrigger(exeName)
+                ws.send(JSON.stringify({ type: "success"}))
+            }
         }
     }
     if(parsedData.action.includes(appRelated)) {

@@ -65,7 +65,7 @@ function NewWorkflask({ apps }) {
             return
         }
 
-        sendMessage({ type: "activate", trigger: trigger, action: action, contents: contents })
+        sendMessage({ type: "activate", triggerType: triggerType, trigger: trigger, actionType: actionType, action: action, contents: contents })
         onMessage((data) => {
             console.log(data)
         })
@@ -84,13 +84,14 @@ function NewWorkflask({ apps }) {
                     <select name="trigger" id="triggerDropdown" className="focus:outline-none w-full" onChange={onTriggerTypeChange}>
                         <option value="Select one">Select one</option>
                         <option value="On app open">On app open</option>
+                        <option value="On app close">On app close</option>
                     </select>
-                    {triggerType === "On app open" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : null}
+                    {triggerType === "On app open" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : triggerType === "On app close" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : null}
                     <h1>Select an action</h1>
                     <select onChange={onActionTypeChange} className="focus:outline-none w-full">
                         <option value="Select one">Select one</option>
                         <option value="Open app">Open app</option>
-                        <option value="createFile">Create file</option>
+                        <option value="Create file">Create file</option>
                     </select>
                     {actionType === "Open app" ? <ActionApps apps={apps} onActionChange={onActionChange}/> : actionType === "createFile" ? <CreateFileMenu onActionChange={onActionChange}  onContentsChange={onContentsChange}/> : null} 
                 </div>

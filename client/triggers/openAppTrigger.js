@@ -1,7 +1,7 @@
 import psList from "ps-list"
 import events from "../misc/events.js";
 
-async function appTrigger(monitoredApp, appOpened) {
+async function openAppTrigger(monitoredApp) {
     const intervalID = setInterval(async () => {
         const runningProcs = await psList()
 
@@ -16,4 +16,4 @@ async function appTrigger(monitoredApp, appOpened) {
     }, 1000)
 }
 
-export default appTrigger
+export default openAppTrigger
