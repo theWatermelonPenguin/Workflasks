@@ -1,18 +1,41 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { onMessage, sendMessage } from "./ws.js"
+import TriggerApps from "./components/TriggerApps.jsx"
+import CreateFileMenu from "./components/CreateFileMenu.jsx"
+import ActionApps from "./components/ActionApps.jsx"
 
 function NewWorkflask({ apps }) {
-    const [trigger, setTrigger] = useState("nothing selected")
-    const [action, setAction] = useState("nothing selected")
+    const [triggerType, setTriggerType] = useState(null)
+    const [action, setAction] = useState(null)
+    const [actionType, setActionType] = useState(null)
+    const [trigger, setTrigger] = useState(null)
+    const [contents, setContents] = useState(null)
+
+    function onTriggerTypeChange(e) {
+        if(e.target.value === "Select one") {
+            setTriggerType(null)
+        } else setTriggerType(e.target.value)
+    }
+
+    function onActionTypeChange(e) {
+        if(e.target.value === "Select one") {
+            setActionType(null)
+        } else setActionType(e.target.value)
+    }
 
     function onTriggerChange(e) {
-        setTrigger("app " + e.target.value)
+        setTrigger(e.target.value)
         console.log(e.target.value)
     }
 
     function onActionChange(e) {
-        setAction("app " + e.target.value)
+        setAction(e.target.value)
+        console.log(e.target.value)
+    }
+
+    function onContentsChange(e) {
+        setContents(e.target.value)
         console.log(e.target.value)
     }
 
@@ -37,11 +60,12 @@ function NewWorkflask({ apps }) {
     }
     
     async function handleActivate() {
-        if(trigger === "nothing selected" || action === "nothing selected") {
+        if(trigger === null || action === null) {
             alert("Trigger or action must be selected")
+            return
         }
 
-        sendMessage({ type: "activate", trigger: trigger, action: action })
+        sendMessage({ type: "activate", trigger: trigger, action: action, contents: contents })
         onMessage((data) => {
             console.log(data)
         })
@@ -57,23 +81,18 @@ function NewWorkflask({ apps }) {
                 </div>
                 <div className="flex-1 flex-col p-4 space-y-2">
                     <h1>Select a trigger</h1>
-                    <select name="trigger" id="triggerDropdown" className="focus:outline-none" onChange={onTriggerChange}>
-                        <option>Select one</option>
-                        {apps.map((app, index) => (
-                            <option key={index} value={app}>
-                                On {app} open
-                            </option>
-                        ))}
+                    <select name="trigger" id="triggerDropdown" className="focus:outline-none w-full" onChange={onTriggerTypeChange}>
+                        <option value="Select one">Select one</option>
+                        <option value="On app open">On app open</option>
                     </select>
+                    {triggerType === "On app open" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : null}
                     <h1>Select an action</h1>
-                    <select onChange={onActionChange} className="focus:outline-none">
-                        <option>Select one</option>
-                        {apps.map((app, index) => (
-                            <option key={index} value={app}>
-                                Open {app}
-                            </option>
-                        ))}
+                    <select onChange={onActionTypeChange} className="focus:outline-none w-full">
+                        <option value="Select one">Select one</option>
+                        <option value="Open app">Open app</option>
+                        <option value="createFile">Create file</option>
                     </select>
+                    {actionType === "Open app" ? <ActionApps apps={apps} onActionChange={onActionChange}/> : actionType === "createFile" ? <CreateFileMenu onActionChange={onActionChange}  onContentsChange={onContentsChange}/> : null} 
                 </div>
             </div>
         </>

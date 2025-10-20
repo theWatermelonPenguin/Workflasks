@@ -9,7 +9,7 @@ async function appTrigger(monitoredApp, appOpened) {
         for(const app of processNames) {
             if(app === monitoredApp) {
                 clearInterval(intervalID)
-                events.emit("Trigger app opened")
+                events.emit("Trigger succeeded")
             }
         }
         console.log(processNames)

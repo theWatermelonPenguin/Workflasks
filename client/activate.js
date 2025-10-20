@@ -1,5 +1,6 @@
 import appTrigger from "./triggers/appTrigger.js";
 import appAction from "./actions/appAction.js";
+import createFile from "./actions/createFile.js";
 import { appFiles, knownAppLocations } from "./misc/consts.js";
 import events from "./misc/events.js";
 
@@ -30,10 +31,16 @@ async function activate(parsedData, ws) {
 
         if(knownAppLocations.hasOwnProperty(actionApp)) {
             const exePath = knownAppLocations[actionApp]
-            events.on("Trigger app opened", () => {
+            events.on("Trigger succeeded", () => {
                 appAction(exePath)
             })
         }
+    } else if(parsedData.action.includes("\\")) {
+        const filePath = parsedData.action
+        const createFileContents = parsedData.contents
+        events.on("Trigger succeeded", () => {
+            createFile(filePath, createFileContents)
+        })
     }
 }
 
