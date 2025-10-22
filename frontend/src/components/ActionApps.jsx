@@ -3,9 +3,10 @@ function ActionApps({apps, onActionChange}) {
         <>
             <h1>Select action app</h1>
             <select className="focus:outline-none w-full" onChange={onActionChange}>
+                <option>Select one</option>
                 {apps.map((app, index) => (
-                    <option key={index} value={`app ${app}`}>
-                        On {app} open
+                    <option key={index} value={app}>
+                        {app}
                     </option>
                 ))}
             </select>

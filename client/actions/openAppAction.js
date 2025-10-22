@@ -1,6 +1,6 @@
 import {execFile} from "child_process"
 
-function appAction(exePath) {
+function openAppAction(exePath) {
     if(exePath.includes("obs64.exe")) {
         const obsCwd = "C:\\Program Files\\obs-studio\\bin\\64bit\\"
 
@@ -26,4 +26,4 @@ function appAction(exePath) {
     }
 }
 
-export default appAction
+export default openAppAction

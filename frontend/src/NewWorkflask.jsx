@@ -91,9 +91,10 @@ function NewWorkflask({ apps }) {
                     <select onChange={onActionTypeChange} className="focus:outline-none w-full">
                         <option value="Select one">Select one</option>
                         <option value="Open app">Open app</option>
+                        <option value="Close app">Close app</option>
                         <option value="Create file">Create file</option>
                     </select>
-                    {actionType === "Open app" ? <ActionApps apps={apps} onActionChange={onActionChange}/> : actionType === "createFile" ? <CreateFileMenu onActionChange={onActionChange}  onContentsChange={onContentsChange}/> : null} 
+                    {actionType === "Open app" ? <ActionApps apps={apps} onActionChange={onActionChange}/> : actionType === "Create file" ? <CreateFileMenu onActionChange={onActionChange}  onContentsChange={onContentsChange}/> : actionType === "Close app" ? <ActionApps apps={apps} onActionChange={onActionChange}/> : null} 
                 </div>
             </div>
         </>
