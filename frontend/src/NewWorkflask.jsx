@@ -4,6 +4,8 @@ import { onMessage, sendMessage } from "./ws.js"
 import TriggerApps from "./components/TriggerApps.jsx"
 import CreateFileMenu from "./components/CreateFileMenu.jsx"
 import ActionApps from "./components/ActionApps.jsx"
+import FilePathMenu from "./components/FilePathMenu.jsx"
+import FolderPathMenu from "./components/FolderPathMenu.jsx"
 
 function NewWorkflask({ apps }) {
     const [triggerType, setTriggerType] = useState(null)
@@ -85,8 +87,10 @@ function NewWorkflask({ apps }) {
                         <option value="Select one">Select one</option>
                         <option value="On app open">On app open</option>
                         <option value="On app close">On app close</option>
+                        <option value="On file save">On file save</option>
+                        <option value="On file create">On file create</option>
                     </select>
-                    {triggerType === "On app open" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : triggerType === "On app close" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : null}
+                    {triggerType === "On app open" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : triggerType === "On app close" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : triggerType === "On file save" ? <FilePathMenu onTriggerChange={onTriggerChange}/> : triggerType === "On file create" ? <FolderPathMenu onTriggerChange={onTriggerChange}/> : null}
                     <h1>Select an action</h1>
                     <select onChange={onActionTypeChange} className="focus:outline-none w-full">
                         <option value="Select one">Select one</option>

@@ -5,6 +5,8 @@ import { appFiles, knownAppLocations } from "./misc/consts.js";
 import events from "./misc/events.js";
 import closeAppTrigger from "./triggers/closeAppTrigger.js";
 import closeAppAction from "./actions/closeAppAction.js";
+import fileChangeTrigger from "./triggers/fileChangeTrigger.js";
+import fileCreatedTrigger from "./triggers/fileCreatedTrigger.js";
 
 async function activate(parsedData) {
 
@@ -14,6 +16,12 @@ async function activate(parsedData) {
     } else if(parsedData.triggerType === "On app close") {
         const exeName = appFiles[parsedData.trigger]
         await closeAppTrigger(exeName)
+    } else if(parsedData.triggerType === "On file save") {
+        const filePath = parsedData.trigger
+        fileChangeTrigger(filePath)
+    } else if(parsedData.triggerType === "On file create") {
+        const folderPath = parsedData.trigger
+        fileCreatedTrigger(folderPath)
     }
 
     if(parsedData.actionType === "Open app") {
