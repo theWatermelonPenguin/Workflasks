@@ -13,6 +13,7 @@
   "type": "module",
   "dependencies": {
     "chokidar": "^4.0.3",
+    "clipboardy": "^5.0.0",
     "events": "^3.3.0",
     "get-installed-apps": "^1.1.1",
     "nodemon": "^3.1.10",

@@ -8,6 +8,7 @@ import closeAppAction from "./actions/closeAppAction.js";
 import fileChangeTrigger from "./triggers/fileChangeTrigger.js";
 import fileCreatedTrigger from "./triggers/fileCreatedTrigger.js";
 import deleteFileAction from "./actions/deleteFileAction.js";
+import clipboardChangeTrigger from "./triggers/clipboardChangeTrigger.js";
 
 async function activate(parsedData) {
 
@@ -23,6 +24,8 @@ async function activate(parsedData) {
     } else if(parsedData.triggerType === "On file create") {
         const folderPath = parsedData.trigger
         fileCreatedTrigger(folderPath)
+    } else if(parsedData.triggerType === "On clipboard change") {
+        clipboardChangeTrigger()
     }
 
     if(parsedData.actionType === "Open app") {

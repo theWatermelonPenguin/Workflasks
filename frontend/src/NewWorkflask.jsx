@@ -62,7 +62,7 @@ function NewWorkflask({ apps }) {
     }
     
     async function handleActivate() {
-        if(trigger === null || action === null) {
+        if(triggerType === null || actionType === null) {
             alert("Trigger or action must be selected")
             return
         }
@@ -89,6 +89,7 @@ function NewWorkflask({ apps }) {
                         <option value="On app close">On app close</option>
                         <option value="On file save">On file save</option>
                         <option value="On file create">On file create</option>
+                        <option value="On clipboard change">On clipboard change</option>
                     </select>
                     {triggerType === "On app open" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : triggerType === "On app close" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : triggerType === "On file save" ? <FilePathMenu onChange={onTriggerChange}/> : triggerType === "On file create" ? <FolderPathMenu onTriggerChange={onTriggerChange}/> : null}
                     <h1>Select an action</h1>
