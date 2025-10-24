@@ -90,15 +90,16 @@ function NewWorkflask({ apps }) {
                         <option value="On file save">On file save</option>
                         <option value="On file create">On file create</option>
                     </select>
-                    {triggerType === "On app open" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : triggerType === "On app close" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : triggerType === "On file save" ? <FilePathMenu onTriggerChange={onTriggerChange}/> : triggerType === "On file create" ? <FolderPathMenu onTriggerChange={onTriggerChange}/> : null}
+                    {triggerType === "On app open" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : triggerType === "On app close" ? <TriggerApps apps={apps} onTriggerChange={onTriggerChange}/> : triggerType === "On file save" ? <FilePathMenu onChange={onTriggerChange}/> : triggerType === "On file create" ? <FolderPathMenu onTriggerChange={onTriggerChange}/> : null}
                     <h1>Select an action</h1>
                     <select onChange={onActionTypeChange} className="focus:outline-none w-full">
                         <option value="Select one">Select one</option>
                         <option value="Open app">Open app</option>
                         <option value="Close app">Close app</option>
                         <option value="Create file">Create file</option>
+                        <option value="Delete file">Delete file</option>
                     </select>
-                    {actionType === "Open app" ? <ActionApps apps={apps} onActionChange={onActionChange}/> : actionType === "Create file" ? <CreateFileMenu onActionChange={onActionChange}  onContentsChange={onContentsChange}/> : actionType === "Close app" ? <ActionApps apps={apps} onActionChange={onActionChange}/> : null} 
+                    {actionType === "Open app" ? <ActionApps apps={apps} onActionChange={onActionChange}/> : actionType === "Create file" ? <CreateFileMenu onActionChange={onActionChange}  onContentsChange={onContentsChange}/> : actionType === "Close app" ? <ActionApps apps={apps} onActionChange={onActionChange}/> : actionType === "Delete file" ? <FilePathMenu onChange={onActionChange} /> : null} 
                 </div>
             </div>
         </>

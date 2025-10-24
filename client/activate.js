@@ -7,6 +7,7 @@ import closeAppTrigger from "./triggers/closeAppTrigger.js";
 import closeAppAction from "./actions/closeAppAction.js";
 import fileChangeTrigger from "./triggers/fileChangeTrigger.js";
 import fileCreatedTrigger from "./triggers/fileCreatedTrigger.js";
+import deleteFileAction from "./actions/deleteFileAction.js";
 
 async function activate(parsedData) {
 
@@ -39,6 +40,11 @@ async function activate(parsedData) {
         const exeName = appFiles[parsedData.action]
         events.on("Trigger succeeded", () => {
             closeAppAction(exeName)
+        })
+    } else if(parsedData.actionType === "Delete file") {
+        const filePath = parsedData.action
+        events.on("Trigger succeeded", () => {
+            deleteFileAction(filePath)
         })
     }
 }
