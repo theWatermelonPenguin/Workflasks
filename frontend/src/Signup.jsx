@@ -1,11 +1,12 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import x from "./assets/x.svg"
 
 function Signup () {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [name, setName] = useState("")
+    const navigate = useNavigate()
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -21,6 +22,7 @@ function Signup () {
         
         if (res.ok) {
             console.log("Signup successful:", data);
+            navigate("/login")
         } else {
             console.log("Signup failed:", data);
         }

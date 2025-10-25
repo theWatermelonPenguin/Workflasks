@@ -15,9 +15,11 @@ export const signupController = async (req, res) => {
     const salt = bcrypt.genSaltSync(10)
     const hashed_password = bcrypt.hashSync(password, salt)
 
-    await pool.query("INSERT INTO users (email, hashed_password, name) VALUES ($1, $2, $3)", [email, hashed_password, name]);
+    await pool.query("INSERT INTO users (email, password, name) VALUES ($1, $2, $3)", [email, hashed_password, name]);
 
     res.status(201).json({ message: "Signup succesfully" });
 
     console.log(chalk.green("Signup succesful"))
 };
+
+//timothy@gmail.com 123456

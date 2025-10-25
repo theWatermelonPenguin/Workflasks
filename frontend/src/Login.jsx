@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import x from "./assets/x.svg"
+import { ToastContainer, toast } from "react-toastify";
 
 
 
@@ -26,12 +27,13 @@ function Login() {
                 console.log("Signup successful:", data);
                 const token = data.token
                 window.store.set("Session Token", token)
-                alert("Login Succesfull")
-                navigate('/')
+                toast.success("Login Succesfull")
                 window.store.set("Is logged in", true)
+                navigate('/')
             }
         } else {
-            console.log("Signup failed:", data);
+            console.log("Login failed:", data);
+            toast.error("Login failed", data)
         }
     }
 
@@ -59,6 +61,7 @@ function Login() {
                     <Link to="/signup" className="hover:cursor-pointer hover:text-blue-700 underline self-center transition-all">Need an account? Sign up!</Link>
                 </form>
             </div>
+            <ToastContainer position="bottom-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick pauseOnHover theme="colored"/>
         </>
     )
 }

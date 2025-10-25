@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, Menu } from "electron"; // added Menu import
 import { fileURLToPath } from "url";
 import path from "path";
 import Store from "electron-store";
@@ -23,6 +23,17 @@ function createWindow() {
 
   win.loadURL("http://localhost:5173");
   win.webContents.openDevTools();
+
+  win.webContents.on("before-input-event", (event, input) => {
+    if ((input.control || input.meta) && input.key.toLowerCase() === "r") {
+      event.preventDefault(); 
+    }
+    if (input.key === "F5") {
+      event.preventDefault();
+    }
+  });
+
+  Menu.setApplicationMenu(null);
 }
 
 app.whenReady().then(createWindow);

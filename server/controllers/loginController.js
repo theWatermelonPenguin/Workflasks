@@ -17,7 +17,7 @@ export const loginController = async (req, res) => {
     }
 
     const user = search.rows[0]
-    const valid = bcrypt.compareSync(password, user.hashed_password)
+    const valid = bcrypt.compareSync(password, user.password)
 
     if(!valid){
         console.log(chalk.red("Log in failed for user:", email))
@@ -39,3 +39,5 @@ export const loginController = async (req, res) => {
     console.log(chalk.green("Log in successful for user:", email, token))
     res.json({ success: true, message: "Logged in successfully", token: token})
 };
+
+//bob@gmail.com timothy 123456

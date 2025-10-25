@@ -12,7 +12,6 @@ async function openAppTrigger(monitoredApp) {
                 events.emit("Trigger succeeded")
             }
         }
-        console.log(processNames)
     }, 1000)
 }
 
