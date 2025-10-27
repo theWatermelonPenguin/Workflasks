@@ -87,7 +87,7 @@ function Home({ setApps, loaded, setLoaded }) {
                                 ))}
                             </div>
                         </div>
-                    {loggedIn === false ? <Link to="/login" className="ml-auto hover:cursor-pointer hover:text-blue-700 transition delay-75">Log In or Sign Up</Link> : loggedIn === true ? <button className="ml-auto hover:cursor-pointer hover:text-blue-700 transition delay-75" onClick={handleLogout}>Log out</button> : null}
+                    {!loggedIn ? <Link to="/login" className="ml-auto hover:cursor-pointer hover:text-blue-700 transition delay-75 whitespace-nowrap">Log In or Sign Up</Link> : <button className="ml-auto hover:cursor-pointer hover:text-blue-700 transition delay-75 whitespace-nowrap" onClick={handleLogout}>Log out</button>}
                 </div>
                 <ToastContainer position="bottom-center" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick pauseOnHover theme="colored"/>
             </>

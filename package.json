@@ -1,8 +1,38 @@
 {
+  "main": "electron/main.js",
+  "name": "Workflasks",
+  "description": "Automate your tasks, on the cloud or on the computer - your choice!",
+  "author": { "name": "Palvient" },
+  "version": "1.0.0",
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix electron\" \"npm run dev --prefix client\""
+    "dev": "concurrently \"npm run dev --prefix electron\" \"npm run dev --prefix frontend\" \"npm run dev --prefix client\"",
+    "build": "npm run build --prefix frontend && electron-builder"
   },
+  "devDependencies": {
+    "electron": "^38.1.0",
+    "electron-builder": "^26.0.12"
+  },
+  "type": "module",
   "dependencies": {
-    "concurrently": "^9.2.1"
+    "asar": "^3.2.0",
+    "electron-store": "^11.0.2",
+    "concurrently": "9.2.1"
+  },
+  "build": {
+    "appId": "com.palvient.workflasks",
+    "directories": {
+      "output": "release",
+      "buildResources": "electron/assets"
+    },
+    "files": [
+      "electron/**",
+      "frontend/dist/**",
+      "client/**",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "electron/assets/logo.ico"
+    }
   }
 }

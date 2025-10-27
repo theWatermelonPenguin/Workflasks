@@ -4,7 +4,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import NewWorkflask from "./NewWorkflask";
 import LoadWorkflask from "./LoadWorkflask"
-import { BrowserRouter, Routes, Route} from "react-router-dom";
+import { HashRouter, Routes, Route} from "react-router-dom";
 import { useState } from "react";
 
 function Router(){
@@ -13,7 +13,7 @@ function Router(){
 
   return(
     <>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<Home setApps={setApps} loaded={loaded} setLoaded={setLoaded}/>}/>
           <Route path="/login" element={<Login/>}/>
@@ -21,7 +21,7 @@ function Router(){
           <Route path="/newWorkflask" element={<NewWorkflask apps={apps}/>}/>
           <Route path="/loadWorkflask" element={<LoadWorkflask apps={apps}/>}/>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </>
   )
 }

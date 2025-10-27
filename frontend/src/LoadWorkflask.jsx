@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { onMessage, sendMessage } from "./ws.js"
 import TriggerApps from "./components/TriggerApps.jsx"
 import CreateFileMenu from "./components/CreateFileMenu.jsx"
@@ -16,7 +16,7 @@ function LoadWorkflask({ apps }) {
     const [trigger, setTrigger] = useState("")
     const [contents, setContents] = useState("")
     const [title, setTitle] = useState("")
-    
+    const navigate = useNavigate()
     const workflaskId = location.state
     useEffect(() => {
         async function obtainWorkflaskData() {
@@ -102,6 +102,10 @@ function LoadWorkflask({ apps }) {
         })
     }
 
+    function handleBack(){
+        navigate("/")
+    }
+
     return(
         <>
             <div className="bg-neutral-100 flex items-center">
@@ -112,7 +116,7 @@ function LoadWorkflask({ apps }) {
                 <div className="flex flex-col w-30 bg-neutral-100 text-white p-4 space-y-2">
                     <button className="bg-blue-700 p-4 rounded-lg w-full" onClick={handleSave}>Save</button>
                     <button className="bg-blue-700 p-4 rounded-lg w-full" onClick={handleActivate}>Activate</button>
-                    <Link to="/">back</Link>
+                    <button className="bg-blue-700 p-4 rounded-lg w-full" onClick={handleBack}>Back</button>
                 </div>
                 <div className="flex-1 flex-col p-4 space-y-2">
                     <h1>Select a trigger</h1>

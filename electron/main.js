@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain, Menu } from "electron"; // added Menu impo
 import { fileURLToPath } from "url";
 import path from "path";
 import Store from "electron-store";
+import clientMain from "../client/main.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,8 +22,7 @@ function createWindow() {
     },
   });
 
-  win.loadURL("http://localhost:5173");
-  win.webContents.openDevTools();
+  win.loadFile(path.join(app.getAppPath(), "frontend", "dist", "index.html"))
 
   win.webContents.on("before-input-event", (event, input) => {
     if ((input.control || input.meta) && input.key.toLowerCase() === "r") {
@@ -34,6 +34,8 @@ function createWindow() {
   });
 
   Menu.setApplicationMenu(null);
+
+  clientMain()
 }
 
 app.whenReady().then(createWindow);
