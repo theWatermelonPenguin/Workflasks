@@ -1,8 +1,8 @@
-function FilePathMenu({onChange}) {
+function FilePathMenu({onChange, value}) {
     return(
         <>
             <h1>File location (please use \\)</h1>
-            <input type="text" className="rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700 ring-1 w-full" onChange={onChange}/>
+            <input type="text" className="rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-700 ring-1 w-full" onChange={onChange} value={value}/>
         </>
     )
 }
